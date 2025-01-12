@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mutation Observer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <img src="./img/mutation-title.png" />
+        <p><i>Observe</i> &nbspthis area ↓</p>
+      </div>
+      <div id="observable"></div>
+      <div class="button-container">
+        <button class="button" id="addElement">Add Element</button>
+        <button class="button" id="changeText">Change Text</button>
+        <button class="button" id="resetBtn">Reset Demo</button>
+      </div>
+      <div class="controls-container">
+        <div id="controls">
+          <button class="controls-button" id="addColor">Add <img src="img/green slime.png" ></button>
+          <button class="controls-button" id="removeColor">Remove <img src="img/green slime.png" ></button>
+          <button class="controls-button" id="startAnimation">Start <img src="img/green-light.png" ></button>
+          <button class="controls-button" id="stopAnimation">Stop <img src="img/red-light.png" ></button>
+        </div>
+      </div>
+      <h2>Mutation Log</h2>
+      <div id="mutation-log">
+        <ul id="log"></ul>
+      </div>
+      <div class="button-container">
+        <button class="button" id="resetLogBtn">Reset Log</button>
+      </div>
+    </div>
+  </body>
+</html>
