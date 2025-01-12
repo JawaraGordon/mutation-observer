@@ -14,6 +14,7 @@ Welcome to **Mutation Observer**, a fun way to learn how DOM changes can be obse
   - Attribute modifications.
 - **Log all changes** dynamically to an activity log.
 - **Interact with attributes**, like adding/removing color or animations, to showcase how the DOM responds in real time.
+- **Toggle Observation** dynamically to start and stop monitoring the DOM.
 
 If you want to learn how browsers can "observe" DOM changes and take action, this app is your perfect hands-on experience!
 
@@ -27,7 +28,8 @@ If you want to learn how browsers can "observe" DOM changes and take action, thi
    - Text content changes.
    - Attribute updates like `class` or `style`.
 3. **User Actions**: Buttons allow you to trigger DOM mutations.
-4. **Real-Time Logging**: All mutations are logged in a scrollable "Mutation Log" for you to see the magic unfold!
+4. **Toggle Observation**: A button lets you start and stop the observer dynamically.
+5. **Real-Time Logging**: All mutations are logged in a scrollable "Mutation Log" for you to see the magic unfold!
 
 ---
 
@@ -67,7 +69,13 @@ If you want to learn how browsers can "observe" DOM changes and take action, thi
    - A great way to start fresh.
 
 6. **Reset Log**
+
    - Clears the mutation log to declutter your screen.
+
+7. **Toggle Observation**
+
+   - Starts and stops the `MutationObserver` dynamically.
+   - Logs whether observation is active or stopped.
 
 ---
 
@@ -90,19 +98,29 @@ If you want to learn how browsers can "observe" DOM changes and take action, thi
 ### Configuration Options
 
 ```javascript
+// childList: Observes direct child nodes
+// attributes: Observes changes to attributes
+// subtree: Observes all descendants
+// characterData: Observes changes to text nodes
+// attributeOldValue: Captures old attribute values
+// characterDataOldValue: Captures old text content
+// attributeFilter: Observes changes to specific attributes
+
 const config = {
-  // Watches for child node additions/removals
   childList: true,
-  // Tracks attribute changes
   attributes: true,
-  // Observes the entire subtree of the target
   subtree: true,
-  // Detects text content changes
   characterData: true
+  //   Not used with this demo:
+  //   attributeOldValue: true,
+  //   characterDataOldValue: true,
+  //   attributeFilter: ['class', 'id']
 };
+```
 
 Observer Initialization
 
+```javascript
 const observer = new MutationObserver(mutationCallbackFunc);
 observer.observe(targetNode, config);
 
@@ -121,7 +139,25 @@ const mutationCallbackFunc = (mutationsList, observer) => {
     }
   }
 };
+```
 
+Toggle Observation
+
+This feature allows you to dynamically start and stop the observer:
+
+```javascript
+let isObserving = true;
+
+document.getElementById('toggleObserving').addEventListener('click', () => {
+  if (isObserving) {
+    observer.disconnect();
+    logChange('Observation stopped.');
+  } else {
+    observer.observe(targetNode, config);
+    logChange('Observation started.');
+  }
+  isObserving = !isObserving;
+});
 ```
 
 License
