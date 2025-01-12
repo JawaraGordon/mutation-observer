@@ -9,12 +9,18 @@ const targetNode = document.getElementById('observable');
 // attributes: Observes changes to attributes
 // subtree: Observes all descendants
 // characterData: Observes changes to text nodes
+// attributeOldValue: Captures old attribute values
+// characterDataOldValue: Captures old text content
+// attributeFilter: Observes changes to specific attributes
 
 const config = {
   childList: true,
   attributes: true,
   subtree: true,
   characterData: true
+  //   attributeOldValue: true,
+  //   characterDataOldValue: true,
+  //   attributeFilter: ['class', 'id']
 };
 
 // Mutation log target node
@@ -32,6 +38,8 @@ const logChange = (message) => {
 
 // Callback function that triggers when mutation is observed
 const mutationCallbackFunc = (mutationsList, observer) => {
+  // Open the console to see MutationRecord objects created by the browser
+  console.log(mutationsList);
   for (const mutation of mutationsList) {
     if (mutation.type === 'childList') {
       logChange(
@@ -109,4 +117,19 @@ document.getElementById('stopAnimation').addEventListener('click', () => {
 // Reset log
 document.getElementById('resetLogBtn').addEventListener('click', () => {
   activityLog.replaceChildren();
+});
+
+// Toggle Observe on/off
+
+let isObserving = true;
+
+document.getElementById('toggleObserving').addEventListener('click', () => {
+  if (isObserving) {
+    observer.disconnect();
+    logChange('Observation stopped.');
+  } else {
+    observer.observe(targetNode, config);
+    logChange('Observation started.');
+  }
+  isObserving = !isObserving;
 });
